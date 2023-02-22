@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class RegistrationDto {
     private String fullName;
-    private String email;
+    private String emailAddress;
     private String password;
     private String confirmPassword;
     private String address;
