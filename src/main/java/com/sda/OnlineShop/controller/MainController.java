@@ -1,6 +1,7 @@
 package com.sda.OnlineShop.controller;
 
 import com.sda.OnlineShop.dto.RegistrationDto;
+import com.sda.OnlineShop.dto.SelectedProductDto;
 import com.sda.OnlineShop.services.ProductService;
 import com.sda.OnlineShop.dto.ProductDto;
 import com.sda.OnlineShop.services.RegistrationService;
@@ -54,6 +55,10 @@ public class MainController {
             return "error";
         }
         model.addAttribute("productDto", optionalproductDto.get());
+
+        SelectedProductDto selectedProductDto = new SelectedProductDto();
+        model.addAttribute("selectedProductDto");
+
         System.out.println("Am dat click pe produsul cu id " + productId);
         return "viewProduct";
     }
@@ -68,7 +73,7 @@ public class MainController {
     @PostMapping("/registration")
     public String viewRegistrationPost(@ModelAttribute RegistrationDto registrationDto, BindingResult bindingResult) {
         registrationDtoValidator.validate(registrationDto, bindingResult);
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "registration";
         }
         registrationService.addRegistration(registrationDto);
