@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class SelectProduct {
+public class SelectedProduct {
     @Id
     @GeneratedValue
     private Integer selectedProductId;
