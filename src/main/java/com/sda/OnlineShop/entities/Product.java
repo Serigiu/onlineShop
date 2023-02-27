@@ -23,5 +23,5 @@ public class Product {
     @Column(columnDefinition = "BLOB")
     private byte[] image;
     @OneToMany(mappedBy = "product")
-    private List <SelectProduct> selectProducts;
+    private List <SelectedProduct> selectedProducts;
 }

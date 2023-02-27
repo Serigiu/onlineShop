@@ -17,6 +17,6 @@ public class ShoppingCart {
     @JoinColumn
     private User user;
     @OneToMany(mappedBy = "shoppingCart")
-    private List<SelectProduct> selectProducts;
+    private List<SelectedProduct> selectedProducts;
 
 }
