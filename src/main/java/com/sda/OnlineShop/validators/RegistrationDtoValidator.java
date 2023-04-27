@@ -15,11 +15,29 @@ import java.util.Optional;
 public class RegistrationDtoValidator {
     @Autowired
     private UserRepository userRepository;
-    public void validate(RegistrationDto registrationDto, BindingResult bindingResult){
-       Optional<User> optionalUser = userRepository.findByEmailAddress(registrationDto.getEmailAddress());
-       if(optionalUser.isPresent()){
-           FieldError fieldError = new FieldError("registrationDto", "emailAddress","The email is already in use!");
-           bindingResult.addError(fieldError);
-       }
+
+    public void validate(RegistrationDto registrationDto, BindingResult bindingResult) {
+        Optional<User> optionalUser = userRepository.findByEmailAddress(registrationDto.getEmailAddress());
+        if (optionalUser.isPresent()) {
+            FieldError fieldError = new FieldError("registrationDto", "emailAddress", "The email is already in use!");
+            bindingResult.addError(fieldError);
+        }
+
+        if (!(registrationDto.getPassword().equals(registrationDto.getConfirmPassword()))) {
+            FieldError fieldError = new FieldError("registrationDto", "confirmPassword", "The passwords do not match!");
+        }
+
+        if (registrationDto.getEmailAddress().isEmpty()) {
+            FieldError fieldError = new FieldError("registrationDto", "emailAddress", "Please provide an email address!");
+        }
+
+        /*if (registrationDto.getEmailAddress().compareTo() {
+            FieldError fieldError = new FieldError("registrationDto", "emailAddress", "Please provide an email address!");
+        }*/
+
+        if (registrationDto.getFullName().isEmpty()) {
+            FieldError fieldError = new FieldError("registrationDto", "fullName", "Please provide a name");
+        }
+
     }
 }

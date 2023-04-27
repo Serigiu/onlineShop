@@ -40,10 +40,9 @@ public class MainController {
     @PostMapping("/addProduct")
     public String addProductPost(@ModelAttribute ProductDto productDto,
                                  @RequestParam("productImage") MultipartFile productImage) {
-
         productService.addProduct(productDto, productImage);
         System.out.println(productDto);
-        return "redirect:/";
+        return "redirect:/addProduct";
     }
 
     @GetMapping("/home")
@@ -53,11 +52,9 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/product/{name}/{productId}")
+    @GetMapping("/product/{productId}")
     public String viewProductGet(Model model,
-                                 @PathVariable(value = "productId") String productId,
-                                 @PathVariable(value = "name") String name)
-    {
+                                 @PathVariable(value = "productId") String productId) {
         Optional<ProductDto> optionalProductDto = productService.getOptionalProductDtoById(productId);
         if (optionalProductDto.isEmpty()) {
             return "error";
@@ -70,16 +67,12 @@ public class MainController {
         return "viewProduct";
     }
 
-    @PostMapping("/product/{name}/{productId}")
+    @PostMapping("/product/{productId}")
     public String viewProductPost(@ModelAttribute SelectedProductDto selectedProductDto,
                                   @PathVariable(value = "productId") String productId,
-                                  @PathVariable(value = "name") String name,
                                   Authentication authentication) {
-        System.out.println(selectedProductDto);
-        System.out.println(authentication.getName());
-
         shoppingCartService.addToCart(selectedProductDto, productId, authentication.getName());
-        return "redirect:/product/" + name + "/" + productId;
+        return "redirect:/product/" + productId;
     }
 
     @GetMapping("/registration")
@@ -103,10 +96,12 @@ public class MainController {
     public String viewLoginGet() {
         return "login";
     }
+
     @GetMapping("/checkout")
     public String viewCheckoutGet(Authentication authentication, Model model) {
         ShoppingCartDto shoppingCartDto = shoppingCartService.getShoppingCartDto(authentication.getName());
         model.addAttribute("shoppingCartDto", shoppingCartDto);
+        System.out.println(shoppingCartDto);
         return "checkout";
     }
 }

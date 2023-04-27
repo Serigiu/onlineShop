@@ -3,6 +3,7 @@ package com.sda.OnlineShop.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 

@@ -20,3 +20,4 @@ public class RegistrationService {
         userRepository.save(user);
     }
 }
+
